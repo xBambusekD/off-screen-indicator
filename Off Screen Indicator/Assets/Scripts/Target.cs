@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 /// <summary>
 /// Attach this script to all the target game objects in the scene.
@@ -100,5 +100,16 @@ public class Target : MonoBehaviour
     {
         float distanceFromCamera = Vector3.Distance(cameraPosition, transform.position);
         return distanceFromCamera;
+    }
+
+    public Vector3 GetObjectCenter() {
+        Vector3 center = new Vector3();
+        Renderer[] renderers = GetComponentsInChildren<Renderer>();
+        foreach (Renderer rend in renderers) {
+            center += rend.bounds.center;
+        }
+        center /= renderers.Length;
+
+        return center;
     }
 }
