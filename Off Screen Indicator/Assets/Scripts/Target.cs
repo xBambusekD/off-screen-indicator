@@ -18,12 +18,17 @@ public class Target : MonoBehaviour
     [Tooltip("Select if distance text is required for this target")]
     [SerializeField] private bool needDistanceText = true;
 
+    [Tooltip("Specify target gameobject. If null, then attached object will be the target.")]
+    [SerializeField] private GameObject targetGameObject = null;
+
     /// <summary>
     /// Please do not assign its value yourself without understanding its use.
     /// A reference to the target's indicator, 
     /// its value is assigned at runtime by the offscreen indicator script.
     /// </summary>
     [HideInInspector] public Indicator indicator;
+
+    private Renderer[] renderers;
 
     /// <summary>
     /// Gets the color for the target indicator.
@@ -91,6 +96,13 @@ public class Target : MonoBehaviour
         }
     }
 
+    private void Start() {
+        if (targetGameObject == null) {
+            targetGameObject = gameObject;
+            renderers = targetGameObject.GetComponentsInChildren<Renderer>();
+        }
+    }
+
     /// <summary>
     /// Gets the distance between the camera and the target.
     /// </summary>
@@ -102,9 +114,21 @@ public class Target : MonoBehaviour
         return distanceFromCamera;
     }
 
-    public Vector3 GetObjectCenter() {
+    public void ChangeTarget(GameObject target) {
+        targetGameObject = target;
+        renderers = targetGameObject.GetComponentsInChildren<Renderer>();
+    }
+
+    public Vector3 GetTargetCenter() {
+        if (renderers == null) {
+            return targetGameObject.transform.position;
+        } else {
+            return ComputeObjectCenter();
+        }
+    }
+
+    private Vector3 ComputeObjectCenter() {
         Vector3 center = new Vector3();
-        Renderer[] renderers = GetComponentsInChildren<Renderer>();
         foreach (Renderer rend in renderers) {
             center += rend.bounds.center;
         }
