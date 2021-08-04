@@ -96,7 +96,7 @@ public class Target : MonoBehaviour
         }
     }
 
-    private void Start() {
+    private void Awake() {
         if (targetGameObject == null) {
             targetGameObject = gameObject;
             renderers = targetGameObject.GetComponentsInChildren<Renderer>();
