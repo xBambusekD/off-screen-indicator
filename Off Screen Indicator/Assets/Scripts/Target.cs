@@ -74,6 +74,13 @@ public class Target : MonoBehaviour
         }
     }
 
+    public void SetTarget(Color targetColor_, bool needBoxIndicator_, bool needArrowIndicator_, bool needDistanceText_, GameObject targetGameObject_ = null) {
+        targetColor = targetColor_;
+        needBoxIndicator = needBoxIndicator_;
+        needDistanceText = needDistanceText_;
+        targetGameObject = targetGameObject_;
+    }
+
     /// <summary>
     /// On enable add this target object to the targets list.
     /// </summary>
