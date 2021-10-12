@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class Indicator : MonoBehaviour
 {
     [SerializeField] private IndicatorType indicatorType;
-    private Image indicatorImage;
+    [SerializeField] private Image indicatorImage;
     private Text distanceText;
 
     /// <summary>
@@ -34,7 +34,6 @@ public class Indicator : MonoBehaviour
 
     void Awake()
     {
-        indicatorImage = transform.GetComponent<Image>();
         distanceText = transform.GetComponentInChildren<Text>();
     }
 
